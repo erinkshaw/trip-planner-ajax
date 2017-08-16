@@ -26,6 +26,8 @@ $(function () {
         // data: someDataToSend, // e.g. for POST requests
       })
       .then(function (responseData) {
+        console.log(responseData)
+        attractionsModule.loadEnhancedAttractions('hotels', responseData);
         responseData.forEach(makeOption, $hotelSelect);
       })
       .catch(function (errorObj) {
@@ -33,9 +35,33 @@ $(function () {
         console.log(errorObj);
       });
 
-    var restaurants
+    var restaurants = $.ajax({
+        method: 'GET',
+        url: '/api/restaurants',
+        // data: someDataToSend, // e.g. for POST requests
+      })
+      .then(function (responseData) {
+        attractionsModule.loadEnhancedAttractions('restaurants', responseData);
+        responseData.forEach(makeOption, $restaurantSelect);
+      })
+      .catch(function (errorObj) {
+        // some code to run if the request errors out
+        console.log(errorObj);
+      });
 
-    var activities
+    var activities = $.ajax({
+        method: 'GET',
+        url: '/api/activities',
+        // data: someDataToSend, // e.g. for POST requests
+      })
+      .then(function (responseData) {
+        attractionsModule.loadEnhancedAttractions('activities', responseData);
+        responseData.forEach(makeOption, $activitySelect);
+      })
+      .catch(function (errorObj) {
+        // some code to run if the request errors out
+        console.log(errorObj);
+      });
 
 
     // make all the option tags (second arg of `forEach` is a `this` binding)
@@ -46,16 +72,15 @@ $(function () {
     // Once you've made AJAX calls to retrieve this information,
     // call attractions.loadEnhancedAttractions in the fashion
     // exampled below in order to integrate it.
-    attractionsModule.loadEnhancedAttractions('hotels', hotels);
-    attractionsModule.loadEnhancedAttractions('restaurants', restaurants);
-    attractionsModule.loadEnhancedAttractions('activities', activities);
+    // attractionsModule.loadEnhancedAttractions('hotels', hotels);
+    // attractionsModule.loadEnhancedAttractions('restaurants', restaurants);
+    // attractionsModule.loadEnhancedAttractions('activities', activities);
 
     function makeOption(databaseAttraction) {
         var $option = $('<option></option>') // makes a new option tag
           .text(databaseAttraction.name)
           .val(databaseAttraction.id);
         this.append($option); // add the option to the specific select
-        console.log('did it!')
     }
 
     // what to do when the `+` button next to a `select` is clicked

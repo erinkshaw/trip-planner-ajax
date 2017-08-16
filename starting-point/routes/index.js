@@ -27,4 +27,8 @@ router.use('/api/activities', require('./api/activities'))
 //   .catch(next);
 // });
 
+router.get('/', (req, res, next) => {
+  res.render('index')
+})
+
 module.exports = router;
