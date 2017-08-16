@@ -27,7 +27,6 @@ $(function () {
       })
       .then(function (responseData) {
         responseData.forEach(makeOption, $hotelSelect);
-        })
       })
       .catch(function (errorObj) {
         // some code to run if the request errors out
