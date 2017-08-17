@@ -46,10 +46,7 @@ var dayModule = (function () {
 			method: 'POST',
 			url: '/api/days',
 			data: {
-        number: this.number,
-        hotel: this.hotel,
-        restaurants: this.restaurants,
-        activities: this.activities
+        number: this.number
 			}
 		})
 		// .then(function(response){
@@ -136,8 +133,6 @@ var dayModule = (function () {
         number: this.number,
         type: type,
         attractionId: attraction.id
-
-
       }
     })
     .then(function() {

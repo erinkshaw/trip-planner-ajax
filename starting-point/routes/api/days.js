@@ -19,12 +19,31 @@ router.post('/', (req, res, next) => {
 })
 
 router.put('/', (req, res, next) => {
-  Day.update(
-    req.body
-  )
-  .then(function(response) {
-    res.send(response)
-  })
+
+  var attraction = req.body
+  Day.findOne({where: {number: req.body.number}})
+    .then( function(updatedDay) {
+      switch (attraction.type) {
+        case 'hotel':
+          updatedDay.setHotel(attraction.attractionId);
+          break;
+        case 'restaurant':
+          updatedDay.addRestaurant(attraction.attractionId);
+          break;
+        case 'activity':
+          updatedDay.addActivity(attraction.attractionId);      break;
+        default: console.error('bad type:', attraction);
+      }
+    })
+      .save()
+      .then( function(updatedDay) {
+        res.send(updatedDay);
+      } )
+      .catch(console.error)
 })
+
+
+
+
 
 module.exports = router;
