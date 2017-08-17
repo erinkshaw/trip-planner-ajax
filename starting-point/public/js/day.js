@@ -13,6 +13,7 @@
  * This module has one public method: `.create()`, used by `days.js`.
  */
 
+
 var dayModule = (function () {
 
   // jQuery selections
@@ -25,7 +26,7 @@ var dayModule = (function () {
 
   // ~~~~~~~~~~~~~~~~~~~~~~~
     // If you follow the logic of `attractionsModule.getEnhanced` (try following it!), you will note that it depends on `loadEnhanceAttractions` to have run.
-    //Note that `loadEnhancedAttractions` is already being called for you in `/public/js/options.js` and that it utilizes another method given to us by the `attractionModule` (singular). 
+    //Note that `loadEnhancedAttractions` is already being called for you in `/public/js/options.js` and that it utilizes another method given to us by the `attractionModule` (singular).
   // ~~~~~~~~~~~~~~~~~~~~~~~
   function Day (data) {
     // for brand-new days
@@ -40,6 +41,20 @@ var dayModule = (function () {
     this.activities = this.activities.map(attractionsModule.getEnhanced);
     // remainder of constructor
     this.buildButton().showButton();
+    //creating a Day db instance
+    $.ajax({
+			method: 'POST',
+			url: '/api/days',
+			data: {
+        number: this.number,
+        hotel: this.hotel,
+        restaurants: this.restaurants,
+        activities: this.activities
+			}
+		})
+		.then(function(response){
+      console.log('day created!');
+		})
   }
 
   // automatic day button handling

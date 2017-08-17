@@ -10,6 +10,8 @@ router.use('/api/restaurants', require('./api/restaurants'))
 
 router.use('/api/activities', require('./api/activities'))
 
+router.use('/api/days', require('./api/days'))
+
 
 // router.get('/', function(req, res, next) {
 //   Promise.all([
