@@ -52,9 +52,9 @@ var dayModule = (function () {
         activities: this.activities
 			}
 		})
-		.then(function(response){
-      console.log('day created!');
-		})
+		// .then(function(response){
+  //     console.log('day created!');
+		// })
   }
 
   // automatic day button handling
@@ -127,6 +127,24 @@ var dayModule = (function () {
         break;
       default: console.error('bad type:', attraction);
     }
+    console.log(this.hotel.id)
+    var type = attraction.type
+    $.ajax({
+      method: 'PUT',
+      url: '/api/days',
+      data: {
+        number: this.number,
+        type: type
+
+
+      }
+    })
+    .then(function() {
+      console.log('did u hear the put request?')
+    })
+    .catch(console.error)
+
+
     // activating UI
     attraction.show();
   };
