@@ -9,6 +9,10 @@ var Day = db.define('day', {
     type: Sequelize.INTEGER,
     allowNull: false
   }
-}, {})
+}, {
+  defaultScope: {
+    include: [Restaurant, Hotel, Activity]
+  }
+})
 
 module.exports = Day;
