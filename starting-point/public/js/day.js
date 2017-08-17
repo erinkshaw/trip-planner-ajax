@@ -134,7 +134,8 @@ var dayModule = (function () {
       url: '/api/days',
       data: {
         number: this.number,
-        type: type
+        type: type,
+        attractionId: attraction.id
 
 
       }
